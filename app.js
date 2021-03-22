@@ -6,10 +6,11 @@ var app = express();
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
-mongoose.connect(
-  "mongodb+srv://ssrk:ssrk@cluster0.slau2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://ssrk:ssrk@cluster0.slau2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
+  // "mongodb+srv://ssrk:ssrk@cluster0.slau2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+
 const itemSchema = {
   name: String,
 };
@@ -20,7 +21,7 @@ const item3 = new Item({
 const d = [item3];
 
 app.get("/", function (req, res) {
-//   res.send("<h1>hello node js!!</h1>");
+  //   res.send("<h1>hello node js!!</h1>");
   Item.find({}, function (err, f) {
     // console.log(f);
     if (f.length === 0) {
